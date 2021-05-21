@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/damazio/compsci/repos/work/managed-images'
+let g:netrw_dirhist_9='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-dev'
+let g:netrw_dirhist_8='/home/damazio/compsci/repos/work/managed-images'
+let g:netrw_dirhist_7='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext/files/etc/nginx'
+let g:netrw_dirhist_6='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext/files/etc'
+let g:netrw_dirhist_5='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext/files/etc/consul.d'
+let g:netrw_dirhist_4='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext/files/etc'
+let g:netrw_dirhist_3='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext/files'
+let g:netrw_dirhist_2='/home/damazio/compsci/repos/work/managed-images/cluster-gwy-ext'
+let g:netrw_dirhist_1='/home/damazio/compsci/repos/work/managed-images'
