@@ -12,13 +12,7 @@ Plug 'preservim/nerdtree' " Nerdtree
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzyfinder
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } } " Fuzzyfinder for vim
 Plug 'ayu-theme/ayu-vim' " Ayu theme
-Plug 'prabirshrestha/vim-lsp' " LSP server
-Plug 'mattn/vim-lsp-settings' " Automagically configure LSP server
-Plug 'prabirshrestha/asyncomplete.vim' " agnostic auto completer
-Plug 'keremc/asyncomplete-clang.vim' " Clang completer
-Plug 'prabirshrestha/asyncomplete-gocode.vim' " Go completer
-Plug 'keremc/asyncomplete-racer.vim' " Rust completer
-Plug 'davidhalter/jedi-vim' " JEDI Python completer
+Plug 'ycm-core/YouCompleteMe' " YCM
 call plug#end()
 
 
@@ -100,40 +94,23 @@ function! SearchWithAgInDirectory(...)
 endfunction
 command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
-" asyncompleter.vim mappings
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" YCM mappings
+nmap <leader><Tab> <Plug>(YCMFindSymbolInWorkspace)
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_max_diagnostics_to_display = 0
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
-let g:asyncomplete_auto_popup = 0
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-let g:asyncomplete_auto_completeopt = 0
-set completeopt=menuone,noinsert,noselect,preview
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Auto completers
-autocmd User asyncomplete_setup call asyncomplete#register_source(
-    \ asyncomplete#sources#clang#get_source_options())
-
-autocmd User asyncomplete_setup call asyncomplete#register_source(
-    \ asyncomplete#sources#racer#get_source_options())
-
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'allowlist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/go/bin/gocode')
-    \  },
-    \ }))
+let g:ycm_semantic_triggers =  {
+  \   'c': ['->', '.'],
+  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \            're!\[.*\]\s'],
+  \   'ocaml': ['.', '#'],
+  \   'cpp,cuda,objcpp': ['->', '.', '::'],
+  \   'perl': ['->'],
+  \   'php': ['->', '::'],
+  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
+  \   'ruby,rust': ['.', '::'],
+  \   'lua': ['.', ':'],
+  \   'erlang': [':'],
+  \ }
