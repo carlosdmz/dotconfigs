@@ -12,6 +12,7 @@ Plug 'preservim/nerdtree' " Nerdtree
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzyfinder
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } } " Fuzzyfinder for vim
 Plug 'ayu-theme/ayu-vim' " Ayu theme
+Plug 'morhetz/gruvbox' " Gruvbox
 Plug 'ycm-core/YouCompleteMe' " YCM
 call plug#end()
 
@@ -31,14 +32,11 @@ set nowrap
 set noswapfile
 set nobackup
 set scrolloff=8
+set omnifunc=syntaxcomplete#Complete
+set completeopt+=preview
+set colorcolumn=81
 
-set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
-
-set termguicolors
-set background=dark
-let ayucolor="dark"
-colorscheme ayu
+colorscheme base16-eva-dim
 inoremap    jk <ESC>
 let g:mapleader = "\<Space>"
 
@@ -102,15 +100,15 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_extra_conf_globlist = ['~/open-source/*', '~/repos/*', '!~/*']
 let g:ycm_semantic_triggers =  {
-  \   'c': ['->', '.'],
+  \   'c': ['->', '.', 're!\w+'],
   \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
   \            're!\[.*\]\s'],
   \   'ocaml': ['.', '#'],
   \   'cpp,cuda,objcpp': ['->', '.', '::'],
   \   'perl': ['->'],
   \   'php': ['->', '::'],
-  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
-  \   'ruby,rust': ['.', '::'],
+  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.', 're!\w+'],
+  \   'ruby,rust': ['.', '::', 're!\w+'],
   \   'lua': ['.', ':'],
   \   'erlang': [':'],
   \ }
