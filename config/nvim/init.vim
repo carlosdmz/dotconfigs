@@ -11,11 +11,11 @@ Plug 'vim-airline/vim-airline-themes' "status bar theme
 Plug 'preservim/nerdtree' " Nerdtree
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzyfinder
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } } " Fuzzyfinder for vim
-Plug 'ayu-theme/ayu-vim' " Ayu theme
-Plug 'morhetz/gruvbox' " Gruvbox
-Plug 'ycm-core/YouCompleteMe' " YCM
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Coc
+Plug 'sainnhe/gruvbox-material' " Gruvbox material
+Plug 'altercation/vim-colors-solarized' " Solarized
+Plug 'vim-scripts/termpot'
 call plug#end()
-
 
 " Basic VIM configuration
 syntax      on
@@ -24,10 +24,12 @@ set guicursor=
 set nu rnu
 set nohlsearch
 set hidden
-set tabstop=4 softtabstop=4
+
+set smarttab
+set tabstop=4
 set shiftwidth=4
-set expandtab
 set smartindent
+
 set nowrap
 set noswapfile
 set nobackup
@@ -36,10 +38,19 @@ set omnifunc=syntaxcomplete#Complete
 set completeopt+=preview
 set colorcolumn=81
 
-colorscheme base16-eva-dim
+let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
+set t_Co=256
+set background=dark
+colorscheme termpot
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+" Some useful remapping
+nnoremap <C-c> :bp\|bd #<CR>
 inoremap    jk <ESC>
 let g:mapleader = "\<Space>"
-
 
 " Nerdtree settings
 map <C-e> :NERDTreeToggle<CR>
@@ -60,7 +71,7 @@ nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-nnoremap <silent> <leader>. :AgIn 
+nnoremap <silent> <leader>. :AgIn
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -92,23 +103,3 @@ function! SearchWithAgInDirectory(...)
 endfunction
 command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
-" YCM mappings
-nmap <leader><Tab> <Plug>(YCMFindSymbolInWorkspace)
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_max_diagnostics_to_display = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_extra_conf_globlist = ['~/open-source/*', '~/repos/*', '!~/*']
-let g:ycm_semantic_triggers =  {
-  \   'c': ['->', '.', 're!\w+'],
-  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \            're!\[.*\]\s'],
-  \   'ocaml': ['.', '#'],
-  \   'cpp,cuda,objcpp': ['->', '.', '::'],
-  \   'perl': ['->'],
-  \   'php': ['->', '::'],
-  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.', 're!\w+'],
-  \   'ruby,rust': ['.', '::', 're!\w+'],
-  \   'lua': ['.', ':'],
-  \   'erlang': [':'],
-  \ }

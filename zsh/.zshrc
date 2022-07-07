@@ -1,16 +1,14 @@
-# Enable true colors
-export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/damnazio/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="jonathan"
+ZSH_THEME="gentoo"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,13 +101,18 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -lha"
 
-# Export /usr/local/go/bin to PATH
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# go
+export GO111MODULE=on
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin
 
-# Bash insulter
-if [ -f /etc/bash.command-not-found ]; then
-    . /etc/bash.command-not-found
-fi
+# direnv
+eval "$(direnv hook zsh)"
 
-# Export Python3.9 library path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/src/Python-3.9.9
