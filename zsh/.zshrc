@@ -116,3 +116,9 @@ export PATH=$PATH:$HOME/go/bin
 # direnv
 eval "$(direnv hook zsh)"
 
+# nvim
+alias vim="nvim"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/damazio/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
